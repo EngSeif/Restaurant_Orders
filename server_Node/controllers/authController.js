@@ -5,12 +5,12 @@ const authController = {
   // Client Signup
   clientSignup: async (req, res) => {
     try {
-        console.log(req.body);
+      console.log(req.body);
       const { firstname, lastname, email, password } = req.body;
-      
+
       // Check if client exists
       const [existingClients] = await connection.execute(
-        'SELECT * FROM Client WHERE email = ?', 
+        'SELECT * FROM Client WHERE email = ?',
         [email]
       );
 
@@ -30,13 +30,13 @@ const authController = {
       // Set session
       req.session.clientId = result.insertId;
 
-      res.status(201).json({ 
+      res.status(201).json({
         message: 'Client created successfully',
-        client: { 
-          id: result.insertId, 
-          firstname, 
-          lastname, 
-          email 
+        client: {
+          id: result.insertId,
+          firstname,
+          lastname,
+          email
         }
       });
     } catch (error) {
@@ -51,7 +51,7 @@ const authController = {
 
       // Find client
       const [clients] = await connection.execute(
-        'SELECT * FROM Client WHERE email = ?', 
+        'SELECT * FROM Client WHERE email = ?',
         [email]
       );
 
@@ -71,13 +71,13 @@ const authController = {
       req.session.clientId = client.client_id;
       console.log(req.session.clientId);
 
-      res.json({ 
+      res.json({
         message: 'Login successful',
-        client: { 
-          id: client.client_id, 
-          firstname: client.firstname, 
-          lastname: client.lastname, 
-          email: client.email 
+        client: {
+          id: client.client_id,
+          firstname: client.firstname,
+          lastname: client.lastname,
+          email: client.email
         }
       });
     } catch (error) {
@@ -89,10 +89,10 @@ const authController = {
   restaurantSignup: async (req, res) => {
     try {
       const { restaurant_name, phone, email, password } = req.body;
-      
+
       // Check if restaurant exists
       const [existingRestaurants] = await connection.execute(
-        'SELECT * FROM Restaurant WHERE email = ?', 
+        'SELECT * FROM Restaurant WHERE email = ?',
         [email]
       );
 
@@ -112,13 +112,13 @@ const authController = {
       // Set session
       req.session.restaurantId = result.insertId;
 
-      res.status(201).json({ 
+      res.status(201).json({
         message: 'Restaurant created successfully',
-        restaurant: { 
-          id: result.insertId, 
-          restaurant_name, 
-          phone, 
-          email 
+        restaurant: {
+          id: result.insertId,
+          restaurant_name,
+          phone,
+          email
         }
       });
     } catch (error) {
@@ -133,7 +133,7 @@ const authController = {
 
       // Find restaurant
       const [restaurants] = await connection.execute(
-        'SELECT * FROM Restaurant WHERE email = ?', 
+        'SELECT * FROM Restaurant WHERE email = ?',
         [email]
       );
 
@@ -152,13 +152,13 @@ const authController = {
       // Set session
       req.session.restaurantId = restaurant.restaurant_id;
 
-      res.json({ 
+      res.json({
         message: 'Login successful',
-        restaurant: { 
-          id: restaurant.restaurant_id, 
-          restaurant_name: restaurant.restaurant_name, 
-          phone: restaurant.phone, 
-          email: restaurant.email 
+        restaurant: {
+          id: restaurant.restaurant_id,
+          restaurant_name: restaurant.restaurant_name,
+          phone: restaurant.phone,
+          email: restaurant.email
         }
       });
     } catch (error) {
@@ -180,16 +180,16 @@ const authController = {
   // Check Authentication Status
   checkAuthStatus: (req, res) => {
     if (req.session.clientId) {
-      res.json({ 
-        isAuthenticated: true, 
-        type: 'client', 
-        id: req.session.clientId 
+      res.json({
+        isAuthenticated: true,
+        type: 'client',
+        id: req.session.clientId
       });
     } else if (req.session.restaurantId) {
-      res.json({ 
-        isAuthenticated: true, 
-        type: 'restaurant', 
-        id: req.session.restaurantId 
+      res.json({
+        isAuthenticated: true,
+        type: 'restaurant',
+        id: req.session.restaurantId
       });
     } else {
       res.json({ isAuthenticated: false });

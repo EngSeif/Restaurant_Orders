@@ -15,7 +15,7 @@ const networkAddress = Object.values(os.networkInterfaces())
 
 // CORS Configuration
 app.use(cors({
-    origin: `http://localhost:3500`, // Your React app's URL
+    origin: `http://localhost:3000`, // Your React app's URL
     credentials: true
 }));
 
