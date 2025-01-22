@@ -75,6 +75,18 @@ const  ClientController = {
         }
     },
 
+    //Get All restaurants for client
+    getRestaurants: async (req, res) => {
+        try {
+            const [restaurants] = await db.execute(
+                'SELECT restaurant_name, phone, email FROM Restaurant'
+            );
+    
+            res.json(restaurants);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
     // Advanced Profile Edit with Validation
     editProfile: async (req, res) => {
         try {

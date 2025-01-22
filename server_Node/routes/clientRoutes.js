@@ -3,10 +3,17 @@ const router = express.Router();
 const clientController = require('../controllers/clientController');
 const authMiddleware = require('../middleware/authMiddleware');
 
+
 // Get Client Profile
 router.get('/profile', 
     authMiddleware.clientAuth, 
     clientController.getProfile
+);
+
+// Get ALl restaurants
+router.get('/restaurants', 
+    authMiddleware.clientAuth, 
+    clientController.getRestaurants
 );
 
 // Update Basic Profile
