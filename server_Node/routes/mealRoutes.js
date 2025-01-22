@@ -33,9 +33,30 @@ router.get('/', async (req, res, next) => {
 });
 
 // Update Meal (Restaurant Only)
-//router.put('/', authMiddleware.restaurantAuth, mealController.updateMeal);
+router.put('/', authMiddleware.restaurantAuth, async (req, res) => {
+    try {
+        // Check if meal_id is provided
+        if (!req.body.meal_id) {
+            return res.status(400).json({ error: 'meal_id is required' });
+        }
+
+        return authMiddleware.restaurantAuth(req, res, () => {
+            mealController.updateMeal(req, res);
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+})
 
 // Delete Meal (Restaurant Only)
-//router.delete('/:meal_id', authMiddleware.restaurantAuth, mealController.deleteMeal);
+router.delete('/:meal_id', authMiddleware.restaurantAuth, async (req, res) => {
+    try {
+        return authMiddleware.restaurantAuth(req, res, () => {
+            mealController.deleteMeal(req, res);
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 module.exports = router;

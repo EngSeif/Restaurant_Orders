@@ -37,13 +37,15 @@ app.use(session({
 const authRoutes = require('./routes/authRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const mealRoutes = require('./routes/mealRoutes');
 
-// Use Routes
+// // Use Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/client', clientRoutes);
 app.use('/api/restaurant', restaurantRoutes);
 app.use('/api/meals', mealRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Start Server
 const server = app.listen(PORT, () => {
