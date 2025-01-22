@@ -1,3 +1,4 @@
+import '../styles/global.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -74,3 +75,4 @@ function LandingPage() {
 }
 
 export default LandingPage;
+
