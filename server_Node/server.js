@@ -15,7 +15,7 @@ const networkAddress = Object.values(os.networkInterfaces())
 
 // CORS Configuration
 app.use(cors({
-    origin: `http://localhost:3000`, // Your React app's URL
+    origin: `http://localhost:3500`, // Your React app's URL
     credentials: true
 }));
 
@@ -33,10 +33,11 @@ app.use(session({
   }
 }));
 
-// Import Routes
+//! Import Routes
 const authRoutes = require('./routes/authRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const mealRoutes = require('./routes/mealRoutes');
 
 // Use Routes
@@ -44,8 +45,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/client', clientRoutes);
 app.use('/api/restaurant', restaurantRoutes);
 app.use('/api/meals', mealRoutes);
+app.use('/api/orders', orderRoutes);
 
 // Start Server
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server running on http://${networkAddress}:${PORT}`);
 });
