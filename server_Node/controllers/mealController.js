@@ -1,6 +1,7 @@
 const db = require('../database');
 
 const mealController = {
+  
   // Get Meals for a Specific Restaurant
   getMeals: async (req, res) => {
     try {

@@ -3,6 +3,11 @@ const router = express.Router();
 const orderController = require('../controllers/orderController');
 const authMiddleware = require('../middleware/authMiddleware');
 
+
+//post order
+
+router.post('/', authMiddleware.restaurantAuth, orderController.updateOrderStatus);
+
 // Get Orders
 router.get('/', async (req, res, next) => {
     try {
