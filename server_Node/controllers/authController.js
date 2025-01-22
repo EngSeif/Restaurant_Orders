@@ -172,7 +172,8 @@ const authController = {
       if (err) {
         return res.status(500).json({ error: 'Could not log out' });
       }
-      res.json({ message: 'Logged out successfully' });
+      res.json({ message: `Logged out successfully ${req.session}` });
+
     });
   },
 

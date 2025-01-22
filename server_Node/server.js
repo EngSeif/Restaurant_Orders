@@ -1,28 +1,29 @@
-const express = require('express')
+const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const authRoutes = require('./routes/authRoutes');
 const bodyParser = require('body-parser');
+const os = require('os');
 
-
-const app = express()
+const app = express();
 const PORT = 3500;
 
-const server = app.listen(PORT,
-    () => {
-        console.log(`Server running http://${address.address === '::' ? 'localhost' : address.address}:${address.port}`);
-    }
-);
-const address = server.address();
+// Get network address
+const networkAddress = Object.values(os.networkInterfaces())
+  .flat()
+  .filter(details => details.family === 'IPv4' && !details.internal)
+  .pop()?.address || 'localhost';
 
+// CORS Configuration
 app.use(cors({
-    origin: `http://${address.address === '::' ? 'localhost' : address.address}:${address.port}`, // Your React app's URL
+    origin: `http://localhost:3000`, // Your React app's URL
     credentials: true
-}))
+}));
 
+// Body Parser Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Session Middleware
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -32,4 +33,19 @@ app.use(session({
   }
 }));
 
-app.use(authRoutes);
+// Import Routes
+const authRoutes = require('./routes/authRoutes');
+const clientRoutes = require('./routes/clientRoutes');
+const restaurantRoutes = require('./routes/restaurantRoutes');
+const mealRoutes = require('./routes/mealRoutes');
+
+// Use Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/client', clientRoutes);
+app.use('/api/restaurant', restaurantRoutes);
+app.use('/api/meals', mealRoutes);
+
+// Start Server
+const server = app.listen(PORT, () => {
+    console.log(`Server running on http://${networkAddress}:${PORT}`);
+});

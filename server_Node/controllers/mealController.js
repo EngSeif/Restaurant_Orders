@@ -1,20 +1,29 @@
-const db = require('../config/database');
+const db = require('../database');
 
 const mealController = {
   // Get Meals for a Specific Restaurant
-  getMealsByRestaurant: async (req, res) => {
+  getMeals: async (req, res) => {
     try {
-      const { restaurantId } = req.params;
-      
-      const [meals] = await db.execute(
-        'SELECT * FROM Meal WHERE restaurant_id = ?', 
-        [restaurantId]
-      );
+        let restaurantId;
 
-      res.json(meals);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
+        // Check if the request is from a restaurant (using session)
+        if (req.session.restaurantId) {
+        restaurantId = req.session.restaurantId;
+        } 
+        // Check if a restaurant ID is provided in the request parameters
+        else if (req.params.restaurant_id) {
+        restaurantId = req.params.restaurant_id;
+        } 
+      
+        const [meals] = await db.execute(
+            'SELECT * FROM Meal WHERE restaurant_id = ?', 
+            [restaurantId]
+        );
+
+        res.json(meals);
+        } catch (error) {
+        res.status(500).json({ error: error.message });
+        }
   },
 
   // Add a New Meal (Restaurant Only)

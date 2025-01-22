@@ -1,7 +1,7 @@
 const authMiddleware = {
     // Client authentication middleware
     clientAuth: (req, res, next) => {
-      console.log(`client id: ${req.session.clientId}`);
+
       if (req.session.clientId) {
         next();
       } else {
