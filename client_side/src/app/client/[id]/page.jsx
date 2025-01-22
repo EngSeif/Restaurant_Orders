@@ -7,6 +7,7 @@ import {
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+axios.defaults.withCredentials = true;
 
 
 function NavBar({ ChangePanel }) {
@@ -46,7 +47,7 @@ function MealCard() {
 
 function Menus() {
   useEffect(() => {
-    axios.get('http://172.21.27.133:3500/api/client/profile').then((res) => console.log(res.data))
+    axios.get('http://localhost:3500/api/client/profile').then((res) => console.log(res.data))
   }, [])
   return (
     <>

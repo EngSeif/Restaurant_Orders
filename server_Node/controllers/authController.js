@@ -69,6 +69,7 @@ const authController = {
 
       // Set session
       req.session.clientId = client.client_id;
+      //res.session.clientId = client.client_id;
       console.log(req.session.clientId);
 
       res.json({
