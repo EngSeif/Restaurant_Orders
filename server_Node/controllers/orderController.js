@@ -3,19 +3,21 @@ const db = require('../database');
 const orderController = {
   // Place an Order
   orderMeals: async (req, res) => {
+    
     try {
       const {meal_id} = req.body;
       const clientId = req.session.clientId;
       const date_of_order = new Date().toISOString().slice(0, 19).replace('T', ' ');
       // Create a new order
-      const order = await db.execute(
-        'INSERT INTO `Order` (client_id,meal_id,date_of_order) VALUES (?, ?, ?)',
-        [clientId, meal_id, date_of_order]
+      //console.log(meal_id, clientId, date_of_order);
+      const [order] = await db.execute(
+        'INSERT INTO Orders (client_id, meal_id, date_of_order,status) VALUES (?, ?, ?,?)',
+        [clientId, meal_id, date_of_order, 'Pending']
       );
 
       // Create an array of values to be inserted into the OrderMeal table
 
-      res.status(201).json({ message: 'Order placed successfully', order: order[0] });
+      res.status(201).json({ message: 'Order placed successfully', order: order });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

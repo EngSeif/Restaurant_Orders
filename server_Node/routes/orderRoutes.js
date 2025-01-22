@@ -6,7 +6,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 //post order
 
-router.post('/', authMiddleware.clientAuth, orderController.updateOrderStatus);
+router.post('/', authMiddleware.clientAuth, orderController.orderMeals);
 
 // Get Orders
 router.get('/', async (req, res, next) => {
