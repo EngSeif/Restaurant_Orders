@@ -15,8 +15,8 @@ const networkAddress = Object.values(os.networkInterfaces())
 
 // CORS Configuration
 app.use(cors({
-    origin: `http://localhost:3500`, // Your React app's URL
-    credentials: true
+    origin: `http://localhost:3000`, // Your React app's URL
+    credentials: true // Important for sessions
 }));
 
 // Body Parser Middleware
@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 
 // Session Middleware
 app.use(session({
+  
   secret: 'secret',
   resave: false,
   saveUninitialized: false,

@@ -8,6 +8,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+axios.defaults.withCredentials = true;
 
 
 function Login() {
@@ -30,7 +31,7 @@ function Login() {
 
         try {
             const response = await axios.post(
-                'http://172.21.27.133:3500/api/auth/client/login',
+                'http://localhost:3500/api/auth/client/login',
                 {
                     email,
                     password,
