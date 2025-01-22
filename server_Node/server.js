@@ -15,8 +15,8 @@ const networkAddress = Object.values(os.networkInterfaces())
 
 // CORS Configuration
 app.use(cors({
-    origin: `http://localhost:3000`, // Your React app's URL
-    credentials: true // Important for sessions
+  origin: `http://localhost:3000`, // Your React app's URL
+  credentials: true // Important for sessions
 }));
 
 // Body Parser Middleware
@@ -25,12 +25,12 @@ app.use(bodyParser.json());
 
 // Session Middleware
 app.use(session({
-  
+
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000 
+    maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
@@ -49,6 +49,6 @@ app.use('/api/meals', mealRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Start Server
-app.listen(PORT, () => {
-    console.log(`Server running on http://${networkAddress}:${PORT}`);
+app.listen(PORT, 'localhost', () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });

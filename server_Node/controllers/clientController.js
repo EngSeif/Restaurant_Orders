@@ -79,7 +79,7 @@ const  ClientController = {
     getRestaurants: async (req, res) => {
         try {
             const [restaurants] = await db.execute(
-                'SELECT restaurant_name, phone, email FROM Restaurant'
+                'SELECT restaurant_id, restaurant_name, phone, email FROM Restaurant'
             );
     
             res.json(restaurants);

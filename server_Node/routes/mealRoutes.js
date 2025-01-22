@@ -10,6 +10,7 @@ router.post('/', authMiddleware.restaurantAuth, mealController.addMeal);
 router.get('/', async (req, res, next) => {
     try {
         // Check if either restaurant or client is logged in
+        console.log(req.session)
         if (req.session.restaurantId) {
             // If restaurant is logged in, use restaurant authentication
             return authMiddleware.restaurantAuth(req, res, () => {
