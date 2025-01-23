@@ -33,7 +33,7 @@ function Login() {
         e.preventDefault()
         try {
             const response = await axios.post(
-                'http://172.21.27.133:3500/api/auth/client/signup',
+                'http://localhost:3500/api/auth/client/signup',
                 {
                     firstname,
                     lastname,

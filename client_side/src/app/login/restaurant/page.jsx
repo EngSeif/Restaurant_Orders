@@ -30,7 +30,7 @@ function Login() {
 
         try {
             const response = await axios.post(
-                'http://172.21.27.133:3500/api/auth/restaurant/login',
+                'http://localhost:3500/api/auth/restaurant/login',
                 {
                     email,
                     password,

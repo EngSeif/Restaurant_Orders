@@ -12,10 +12,10 @@ const mealController = {
         restaurantId = req.session.restaurantId;
         } 
         // Check if a restaurant ID is provided in the request parameters
-        else if (req.body.restaurant_id) {
-        restaurantId = req.body.restaurant_id;
+        else if (req.session.clientId) {
+          restaurantId = req.params.restaurant_id;
         } 
-      
+        console.log(restaurantId);
         const [meals] = await db.execute(
             'SELECT * FROM Meal WHERE restaurant_id = ?', 
             [restaurantId]

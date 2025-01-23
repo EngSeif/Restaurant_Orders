@@ -26,13 +26,13 @@ function LandingPage() {
                         
                         {/* Buttons Container */}
                         <div className="flex flex-col sm:flex-row gap-6 justify-center md:justify-start">
-                            <Link href="/restaurant_main">
+                            <Link href="/login/restaurant">
                                 <button className="bg-white w-full sm:w-auto bg-transparent text-[#27AE60] px-12 py-4 rounded-xl font-semibold text-lg border-2 border-white hover:bg-[#27AE60] hover:text-white transform hover:-translate-y-1 transition duration-300 flex items-center justify-center">
                                     <span>Join as Restaurant</span>
                                 </button>
                             </Link>
                             
-                            <Link href="/client_main">
+                            <Link href="/login/client">
                                 <button className="bg-white w-full sm:w-auto bg-transparent text-[#27AE60] px-12 py-4 rounded-xl font-semibold text-lg border-2 border-white hover:bg-[#27AE60] hover:text-white transform hover:-translate-y-1 transition duration-300 flex items-center justify-center">
                                     <span>Join as Client</span>
                                 </button>

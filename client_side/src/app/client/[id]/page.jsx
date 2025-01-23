@@ -43,8 +43,8 @@ function MealCard({ mealId, mealData }) {
         <Image src='/images/signUp.png' width={300} height={300} className='' />
         <h3 className='text-lg my-3'>{mealData.meal_name}</h3>
         <h3 className='my-1'>{mealData.meal_description}</h3>
-        <h3 className='my-1'>{mealData.price}</h3>
-        <button className='bg-[#27AE60] text-white px-2 py-2 rounded-lg'>Order</button>
+        <h3 className='my-1 flex gap-1'><div className='text-[#27AE60]'>price:</div> {parseFloat(mealData.price.toFixed(2))}$</h3>
+        <button className='bg-[#145a32] text-white px-2 py-2 rounded-lg'>Order</button>
       </div>
     </>
   )
@@ -67,9 +67,7 @@ function Menus() {
   const GetMeals = async () => {
     try {
       console.log(resId)
-      const res = await axios.get(`http://localhost:3500/api/meals/`, {
-        restaurant_id: resId
-      });
+      const res = await axios.get(`http://localhost:3500/api/meals/${resId}`);
       console.log(res.data);
       setMeals(res.data);
     } catch (error) {
@@ -103,7 +101,7 @@ function Menus() {
 
       <div>
         <h2 className="text-2xl py-3 font-semibold">Meals</h2>
-        <div className="grid grid-cols-6 w-full mx-auto gap-4 pb-10">
+        <div className="flex overflow-x-scroll w-full gap-3 py-3 custom-chats-scrollbar">
           {meals.length > 0 ? (
             meals.map((meal) => (
               <MealCard

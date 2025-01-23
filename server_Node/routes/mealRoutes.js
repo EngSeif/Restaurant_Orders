@@ -9,19 +9,19 @@ router.post('/', authMiddleware.restaurantAuth, mealController.addMeal);
 // Get Meals (Both Restaurant and Client)
 router.get('/', async (req, res, next) => {
     try {
+        console.log('router put');
+        console.log('router put');
+        console.log('router put');
+        console.log('router put');
+        console.log('router put');
         // Check if either restaurant or client is logged in
-        console.log(req.session)
+        
         if (req.session.restaurantId) {
             // If restaurant is logged in, use restaurant authentication
             return authMiddleware.restaurantAuth(req, res, () => {
                 mealController.getMeals(req, res);
             });
-        } else if (req.session.clientId) {
-            // If client is logged in, use client authentication
-            return authMiddleware.clientAuth(req, res, () => {
-                mealController.getMeals(req, res);
-            });
-        } else {
+        }  else {
             // If no session exists
             return res.status(401).json({ 
                 error: 'Unauthorized',
@@ -33,7 +33,14 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/:restaurant_id',authMiddleware.clientAuth,mealController.getMeals);
+
 // Update Meal (Restaurant Only)
+console.log('router put');
+console.log('router put');
+console.log('router put');
+console.log('router put');
+console.log('router put');
 router.put('/', authMiddleware.restaurantAuth, async (req, res) => {
     try {
         // Check if meal_id is provided
