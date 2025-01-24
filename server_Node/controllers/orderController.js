@@ -26,23 +26,15 @@ const orderController = {
   // Get Orders for a Restaurant
   getRestaurantOrders: async (req, res) => {
     try {
+      console.log('Restaurant ID: ',req.session.restaurantId);
       const restaurantId = req.session.restaurantId;
 
       const [orders] = await db.execute(
-        `SELECT 
-          o.order_id, 
-          o.status, 
-          o.date_of_order, 
-          m.meal_name, 
-          m.price,
-          c.firstname, 
-          c.lastname, 
-          c.email
-        FROM Orders o
-        JOIN Meal m ON o.meal_id = m.meal_id
-        JOIN Client c ON o.client_id = c.client_id
-        WHERE m.restaurant_id = ?
-        ORDER BY o.date_of_order DESC`,
+        `SELECT o.order_id, o.status, o.date_of_order, m.meal_name,
+          c.firstname, c.lastname
+          FROM Orders o JOIN Meal m ON o.meal_id = m.meal_id 
+          JOIN Client c ON o.client_id = c.client_id 
+          WHERE m.restaurant_id = ? ORDER BY o.date_of_order;`,
         [restaurantId]
       );
 
@@ -54,19 +46,14 @@ const orderController = {
 
   getClientOrders: async (req, res) => {
     try {
-      const restaurantId = req.session.clientId;
-
+      const clientID = req.session.clientId;
+      console.log('Client ID: ',req.session.clientId)
       const [orders] = await db.execute(
-        `SELECT 
-          o.status, 
-          o.date_of_order, 
-          m.meal_name, 
-          m.price,
-        FROM Orders o
-        JOIN Meal m ON o.meal_id = m.meal_id
-        WHERE m.restaurant_id = ?
-        ORDER BY o.date_of_order DESC`,
-        [restaurantId]
+        `SELECT o.order_id, o.meal_id, o.status, o.date_of_order, m.meal_name
+          FROM orders o
+          INNER JOIN meal m 
+          ON o.meal_id = m.meal_id
+          WHERE o.client_id = ?;`,[clientID]
       );
 
       res.json(orders);

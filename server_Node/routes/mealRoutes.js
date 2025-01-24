@@ -7,6 +7,7 @@ const authMiddleware = require('../middleware/authMiddleware');
 router.post('/', authMiddleware.restaurantAuth, mealController.addMeal);
 
 // Get Meals (Both Restaurant and Client)
+router.get('/:restaurant_id',authMiddleware.clientAuth,mealController.getMeals);
 router.get('/', async (req, res, next) => {
     try {
         console.log('router put');
@@ -33,7 +34,6 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:restaurant_id',authMiddleware.clientAuth,mealController.getMeals);
 
 // Update Meal (Restaurant Only)
 console.log('router put');

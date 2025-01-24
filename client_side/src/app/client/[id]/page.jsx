@@ -78,6 +78,7 @@ function Menus() {
   // Fetch meals when `resId` changes
   useEffect(() => {
     console.log('Current resId:', resId);
+    setResId(resId);
     if (resId) {
       GetMeals(); // Execute the function when `resId` changes
     }
@@ -120,66 +121,52 @@ function Menus() {
 }
 
 
-function OrderCard() {
+function OrderCard({ orderData }) {
   return (
-    <>
-      <div className='bg-white justify-between items-center px-3 py-2 w-full flex rounded-md gap-3'>
-        <div>
-          Order Id: 5
-        </div>
-        <div>
-          Restaurant Name: Dummy
-        </div>
-        <div>
-          Meal : Dummy
-        </div>
-        <div>
-          Meal : Dummy
-        </div>
-        <div>
-          Status : Dummy
-        </div>
-        <button>Cancel</button>
-      </div>
-    </>
-  )
-}
-
-function Orders() {
-  return (
-    <>
-      <h1 className='py-2 text-2xl font-semibold'>Orders</h1>
-      <div className='flex flex-col gap-4 pb-4'>
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-      </div>
-    </>
+    <div className="bg-white items-center px-3 py-2 w-full flex rounded-md gap-3">
+      <div className='flex'><div className=' text-[#b9770e]'>Order Id:</div> {orderData.order_id}</div>
+      <div className='flex'><div className=' text-[#1e8449]'>status:</div> {orderData.status}</div>
+      <div className='flex'><div className=' text-[#1e8449]'>Meal:</div> {orderData.meal_name}</div>
+      <button className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">
+        Cancel
+      </button>
+    </div>
   );
 }
+
+
+function Orders() {
+  const [orders, setOrders] = useState([]);
+
+  // Fetch Orders
+  useEffect(() => {
+    axios
+      .get("http://localhost:3500/api/orders")
+      .then((res) => {
+        setOrders(res.data);
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching orders:", error);
+      });
+  }, []);
+
+  return (
+    <div>
+      <h1 className="py-2 text-2xl font-semibold">Orders</h1>
+      <div className="flex flex-col gap-4 pb-4">
+        {orders.length > 0 ? (
+          orders.map((order) => (
+            <OrderCard key={order.order_id} orderData={order} />
+          ))
+        ) : (
+          <p>No orders available</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 
 function Client() {
 

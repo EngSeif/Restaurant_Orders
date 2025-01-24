@@ -5,15 +5,8 @@ import Link from 'next/link';
 function LandingPage() {
     return (
         <div className="min-h-screen bg-gradient-to-b from-[#27AE60] to-[#219652]">
-            {/* Navigation */}
-            <nav className="container mx-auto px-6 py-4">
-                <div className="flex justify-end items-center">
-                    <h1 className="text-white text-5xl font-bold">جاهز؟</h1>
-                </div>
-            </nav>
-
             {/* Main Content */}
-            <div className="container mx-auto px-6 py-16">
+            <div className="container mx-auto px-6 ">
                 <div className="flex flex-col md:flex-row items-center justify-between">
                     {/* Left Side Content */}
                     <div className="md:w-1/2 text-center md:text-left">
@@ -42,9 +35,9 @@ function LandingPage() {
 
                     {/* Right Side Image */}
                     <div className="md:w-1/2 mt-12 md:mt-0 flex justify-center">
-                        <div className="relative w-[500px] h-[500px]">
+                        <div className="relative hidden sm:block sm:w-[600px] md:w-[700px] lg:w-[800px] h-[800px]">
                             <Image 
-                                src="/images/hero-food.png" 
+                                src="/images/gahz-logo.png" 
                                 alt="Food Delivery"
                                 layout="fill"
                                 objectFit="contain"
